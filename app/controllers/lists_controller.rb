@@ -1,7 +1,8 @@
 class ListsController < ApplicationController
 
   def index
-    respond_with @lists = List.all
+    @lists = params[:trip_id] ? List.where(trip_id: params[:trip_id]) : List.all
+    respond_with @lists
   end
 
   def show

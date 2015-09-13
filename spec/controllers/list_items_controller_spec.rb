@@ -4,11 +4,20 @@ RSpec.describe ListItemsController, type: :controller do
   let!(:list_item) { create(:list_item) }
 
   describe "GET #index" do
-    it "gets the list_items" do
-      get :index, { format: :json }
+    let!(:list_item_another_list) { create(:list_item) }
+
+    it "gets the list_items for the list" do
+      get :index, { format: :json, list_id: list_item.list_id }
 
       expect(response).to have_http_status(:ok)
       expect(assigns[:list_items]).to contain_exactly(list_item)
+    end
+
+    it "gets all list_items" do
+      get :index, { format: :json }
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns[:list_items]).to contain_exactly(list_item, list_item_another_list)
     end
   end
 

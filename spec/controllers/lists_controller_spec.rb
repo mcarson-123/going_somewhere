@@ -4,11 +4,20 @@ RSpec.describe ListsController, type: :controller do
   let!(:list) { create(:list) }
 
   describe "GET #index" do
-    it "gets the lists" do
-      get :index, { format: :json }
+    let!(:list_another_trip) { create(:list) }
+
+    it "gets the lists for the trip" do
+      get :index, { format: :json, trip_id: list.trip_id }
 
       expect(response).to have_http_status(:ok)
       expect(assigns[:lists]).to contain_exactly(list)
+    end
+
+    it "gets all the lists" do
+      get :index, { format: :json }
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns[:lists]).to contain_exactly(list, list_another_trip)
     end
   end
 

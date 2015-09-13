@@ -1,7 +1,9 @@
 class ListItemsController < ApplicationController
 
   def index
-    respond_with @list_items = ListItem.all
+    @list_items = params[:list_id] ? ListItem.where(list_id: params[:list_id]) : ListItem.all
+    # respond_with @list_items = ListItem.where(list_id: params[:list_id])
+    respond_with @list_items
   end
 
   def show
