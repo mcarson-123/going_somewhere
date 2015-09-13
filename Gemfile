@@ -4,6 +4,7 @@ ruby '2.2.0'
 gem 'active_model_serializers'
 gem 'rails', '4.2.1'
 gem 'pg'
+gem 'puma'
 gem 'responders', '~> 2.0'
 
 group :development do
